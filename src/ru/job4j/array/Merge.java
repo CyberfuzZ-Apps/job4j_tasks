@@ -10,12 +10,11 @@ public class Merge {
             if (left[indexL] <= right[indexR]) {
                 rsl[indexRsl] = left[indexL];
                 indexL++;
-                indexRsl++;
             } else {
                 rsl[indexRsl] = right[indexR];
                 indexR++;
-                indexRsl++;
             }
+            indexRsl++;
         }
         while (indexL < left.length) {
             rsl[indexRsl] = left[indexL];
