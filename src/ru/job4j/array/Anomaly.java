@@ -19,22 +19,13 @@ public class Anomaly {
                 pre[index] = i;
                 pre[index + 1] = i;
                 result[count++] = Arrays.copyOf(pre, index + 2);
-            } else if ((data[i + 1] <= down || data[i + 1] >= up)
-                    && count == 0) {
-                pre[index] = i + 1;
-                pre[index + 1] = i + 1;
-                result[count++] = Arrays.copyOf(pre, index + 2);
             }
         }
+        if (data[data.length - 1] >= up || data[data.length - 1] <= down && count == 0) {
+            pre[index] = data.length - 1;
+            pre[index + 1] = data.length - 1;
+            result[count++] = Arrays.copyOf(pre, 2);
+        }
         return Arrays.copyOf(result, count);
-    }
-
-    public static void main(String[] args) {
-        int[] data = {5, 16, 17, 15, 10, 1, 2};
-        int up = 16;
-        int down = 4;
-        int[][] out = Anomaly.found(data, up, down);
-        System.out.println(Arrays.deepToString(out));
-        //int[][] expect = {new int[] {1, 2}, new int[] {5, 6}};
     }
 }
