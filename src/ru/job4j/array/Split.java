@@ -5,24 +5,22 @@ import java.util.Arrays;
 public class Split {
     public static char[][] split(char[] str, char c) {
         char[][] result = new char[str.length][str.length];
-        int first = 0;
-        int second = 0;
-        for (char value : str) {
-            if (value != c) {
-                result[first][second++] = value;
+        int commonCount = 1;
+        int firstIndex = 0;
+        int secondIndex = 0;
+        for (int i = 0; i < str.length; i++) {
+            if (str[i] != c) {
+                result[firstIndex][secondIndex++] = str[i];
             } else {
-                result[first] = Arrays.copyOf(result[first], second);
-                first++;
-                second = 0;
+                result[firstIndex] = Arrays.copyOf(result[firstIndex], secondIndex);
+                firstIndex++;
+                secondIndex = 0;
+                commonCount++;
             }
-            result[first + 1] = Arrays.copyOf(result[first], second);
+            if (i == str.length - 1) {
+                result[firstIndex] = Arrays.copyOf(result[firstIndex], secondIndex);
+            }
         }
-        return Arrays.copyOf(result, first + 1);
-    }
-
-    public static void main(String[] args) {
-        char[] in = {'o', 'n', 'e', ' ', 't', 'w', 'o', ' ', 't', 'h', 'r', 'e'};
-        char c = ' ';
-        System.out.println(Arrays.deepToString(split(in, c)));
+        return Arrays.copyOf(result, commonCount);
     }
 }
