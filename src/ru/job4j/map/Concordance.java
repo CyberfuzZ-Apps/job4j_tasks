@@ -16,13 +16,15 @@ public class Concordance {
         Map<Character, List<Integer>> rsl = new HashMap<>();
         char[] letters = s.replaceAll(" ", "").toCharArray();
         for (char key : letters) {
-            List<Integer> values = new ArrayList<>();
-            for (int i = 0; i < letters.length; i++) {
-                if (key == letters[i]) {
-                    values.add(i);
+            if (!rsl.containsKey(key)) {
+                List<Integer> values = new ArrayList<>();
+                for (int i = 0; i < letters.length; i++) {
+                    if (key == letters[i]) {
+                        values.add(i);
+                    }
                 }
+                rsl.put(key, values);
             }
-            rsl.put(key, values);
         }
         return rsl;
     }
