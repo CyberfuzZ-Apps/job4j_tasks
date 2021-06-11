@@ -12,8 +12,13 @@ public class Article {
     public static boolean generateBy(String origin, String line) {
         Set<String> originSet = new HashSet<>(Arrays.asList(origin.toLowerCase()
                         .replaceAll("\\p{Punct}", "").split(" ")));
-        Set<String> lineSet = new HashSet<>(Arrays.asList(line.toLowerCase()
-                .replaceAll("\\p{Punct}", "").split(" ")));
-        return originSet.containsAll(lineSet);
+        String[] lineArray = line.toLowerCase()
+                .replaceAll("\\p{Punct}", "").split(" ");
+        for (String str : lineArray) {
+            if (!originSet.contains(str)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
