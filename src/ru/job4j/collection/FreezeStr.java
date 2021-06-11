@@ -11,7 +11,6 @@ import java.util.Map;
 public class FreezeStr {
     public static boolean eq(String left, String right) {
         Map<Character, Integer> leftMap = new HashMap<>();
-        Map<Character, Integer> rightMap = new HashMap<>();
         for (int i = 0; i < left.length(); i++) {
             int amount = 1;
             for (int j = i + 1; j < left.length(); j++) {
@@ -21,15 +20,16 @@ public class FreezeStr {
             }
             leftMap.putIfAbsent(left.charAt(i), amount);
         }
-        for (int i = 0; i < right.length(); i++) {
-            int amount = 1;
-            for (int j = i + 1; j < right.length(); j++) {
-                if (right.charAt(i) == right.charAt(j)) {
-                    amount++;
-                }
+        char[] rightArray = right.toCharArray();
+        for (char ch : rightArray) {
+            if (!leftMap.containsKey(ch)) {
+                return false;
+            } else if (leftMap.get(ch) == 1) {
+                leftMap.remove(ch);
+            } else {
+                leftMap.replace(ch, leftMap.get(ch) - 1);
             }
-            rightMap.putIfAbsent(right.charAt(i), amount);
         }
-        return leftMap.equals(rightMap);
+        return leftMap.isEmpty();
     }
 }
